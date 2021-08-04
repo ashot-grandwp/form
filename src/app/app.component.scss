@@ -85,6 +85,7 @@ img {
   padding: 1rem;
   border: #ccc 1px dotted;
   margin: 0.7rem 0;
+  display: flow-root;
 }
 
 input,
@@ -126,4 +127,8 @@ input{
   &.ng-valid.ng-touched {
       border: 1px solid green;
   }
+}
+
+.right{
+  float: right;
 }

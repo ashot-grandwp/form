@@ -2,65 +2,85 @@
   <form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
     <h1>Angular Forms</h1>
 
-    <div class="form-control">
-      <label for="firstName">Firstname</label>
-      <input type="text" placeholder="Firstname" formControlName="firstName">
-      <div
-       *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched"
-       class="validation">
-        <small *ngIf="form.get('firstName')?.errors?.required">Firstname field cannot be empty</small>
-      </div>
-    </div>
-
-    <div class="form-control">
-      <label for="lastName">Lastname</label>
-      <input type="text" placeholder="Lastname" formControlName="lastName">
-      <div
-        *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched"
+    <div
+    *ngFor="let control of newForm.controls; let idx = index"
+    >
+      <div class="form-control">
+        <label for="firstName">Firstname</label>
+        <input type="text" id="control-{{idx}}" placeholder="Firstname" formControlName="firstName">
+        <div
+        *ngIf="firstName?.invalid && firstName?.touched"
         class="validation">
-        <small *ngIf="form.get('lastName')?.errors?.required">Lastname field cannot be empty</small>
+          <small *ngIf="firstName?.errors?.required">Firstname field cannot be empty</small>
+        </div>
       </div>
-    </div>
 
-    <div class="form-control">
-      <label>Email</label>
-      <input type="text" placeholder="Email" formControlName="email">
-      <div
-       *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-       class="validation"
-       >
-       <small *ngIf="form.get('email')?.errors?.required">Email field cannot be empty</small>
-       <small *ngIf="form.get('email')?.errors?.email">Wrong Email given</small>
+      <div class="form-control">
+        <label for="lastName">Lastname</label>
+        <input type="text" placeholder="Lastname" formControlName="lastName">
+        <div
+          *ngIf="lastName?.invalid && lastName?.touched"
+          class="validation">
+          <small *ngIf="lastName?.errors?.required">Lastname field cannot be empty</small>
+        </div>
       </div>
-    </div>
 
-    <div class="form-control">
-      <label for="number">Number</label>
-      <input type="text" placeholder="Number" formControlName="number">
-      <div
-        *ngIf="form.get('number')?.invalid && form.get('number')?.touched"
-        class="validation">
-        <small *ngIf="form.get('number')?.errors?.required">Number field cannot be empty</small>
-        <small *ngIf="form.get('number')?.errors?.pattern">Enter only number between 1-10</small>
+      <div class="form-control">
+        <label>Email</label>
+        <input type="text" placeholder="Email" formControlName="email">
+        <div
+        *ngIf="email?.invalid && email?.touched"
+        class="validation"
+        >
+        <small *ngIf="email?.errors?.required">Email field cannot be empty</small>
+        <small *ngIf="email?.errors?.email">Wrong Email given</small>
+        </div>
       </div>
-    </div>
 
-    {{form.get('password')?.errors | json}}
-
-    <div class="form-control">
-      <label>Pssword</label>
-      <input type="password" placeholder="Password" formControlName="password">
-      <div
-       *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-       class="validation"
-       >
-       <small *ngIf="form.get('password')?.errors?.required">Password field cannot be empty</small>
-       <small *ngIf="form.get('password')?.errors?.minlength">Minimum length must be {{ form.get('password')?.errors?.minlength?.requiredLength }}</small>
-       <small *ngIf="form.get('password')?.errors?.hasUpperLetter?.value">Password must have an uppercase letter</small>
+      <div class="form-control">
+        <label for="number">Number</label>
+        <input type="text" placeholder="Number" formControlName="number">
+        <div
+          *ngIf="number?.invalid && number?.touched"
+          class="validation">
+          <small *ngIf="number?.errors?.required">Number field cannot be empty</small>
+          <small *ngIf="number?.errors?.pattern">Enter only number between 1-10</small>
+        </div>
       </div>
-    </div>
 
-    <button class="btn" type="submit" [disabled]="form.invalid">Send</button>
+      <div class="form-control">
+        <label>Password</label>
+        <input type="password" placeholder="Password" formControlName="password">
+        <div
+        *ngIf="password?.invalid && password?.touched"
+        class="validation"
+        >
+        <small *ngIf="password?.errors?.required">Password field cannot be empty</small>
+        <small *ngIf="password?.errors?.minlength">Minimum length must be {{ password?.errors?.minlength?.requiredLength }}</small>
+        <small *ngIf="!password?.errors?.minlength && password?.errors?.hasUpperLetter?.value">Password must have an uppercase letter</small>
+        </div>
+      </div>    
+
+      <div class="form-control">
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+        <div
+          *ngIf="confirmPassword?.invalid && confirmPassword?.touched"
+          class="validation">
+          <small *ngIf="confirmPassword?.errors?.required">Confirm Password field cannot be empty</small>
+          <small *ngIf="form?.errors?.notSame">Password must match</small>
+        </div>
+      </div>
+
+      <!-- {{confirmPassword?.touched | json}}
+      {{form?.errors | json}} -->
+    </div>
+    
+    <button class="btn" type="button" (click)="addForm()">Add</button>
+    <button class="btn" type="button" (click)="removeForm()">Remove</button>
+    <hr>
+
+    <button class="btn right" type="submit" [disabled]="form.invalid">Send</button>
 
   </form>
 </div>
