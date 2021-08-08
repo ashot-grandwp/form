@@ -13,7 +13,7 @@ export class CustomValidators{
         const confirmPass = control.get('confirmPassword');
 
         return pass && confirmPass && pass.value === confirmPass.value ? null : { notSame: true };
-    
+
     }
 
 }
