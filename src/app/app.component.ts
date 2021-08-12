@@ -32,11 +32,11 @@ export class AppComponent implements OnInit {
   }
 
   password(item: FormGroup){
-    return item.get('password') as FormControl
+    return item.get('myPass')?.get('password') as FormControl
   }
 
   confirmPassword(item: FormGroup){
-    return item.get('confirmPassword') as FormControl
+    return item.get('myPass')?.get('confirmPassword') as FormControl
   }
 
   constructor(private fb: FormBuilder) {
@@ -49,9 +49,14 @@ export class AppComponent implements OnInit {
       lastName: ['',[Validators.required]],
       email: ['', [Validators.email, Validators.required]],
       number: ['',[Validators.required, Validators.pattern("^([1-9]|10)$")]],
-      password: [null, [Validators.required, Validators.minLength(6), CustomValidators.passwordUppercaseValidator(/[A-Z]/)]],
-      confirmPassword: [null, [Validators.required]],
-    }, {validator: CustomValidators.passwordMatchValidator})
+
+      myPass: this.fb.group({
+        password: [null, [Validators.required, Validators.minLength(6), CustomValidators.passwordUppercaseValidator(/[A-Z]/)]],
+        confirmPassword: [null, [Validators.required]],
+      }, {validator: CustomValidators.passwordMatchValidator}),
+
+      
+    }, )
   }
 
   ngOnInit(){

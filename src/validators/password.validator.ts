@@ -8,11 +8,11 @@ export class CustomValidators{
         }
     }
 
-    static passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    static passwordMatchValidator = (control: AbstractControl) => {
         const pass = control.get('password');
         const confirmPass = control.get('confirmPassword');
 
-        return pass && confirmPass && pass.value === confirmPass.value ? null : { notSame: true };
+        return pass && confirmPass && pass.value === confirmPass.value ? null : confirmPass?.setErrors({ notSame: true });
 
     }
 

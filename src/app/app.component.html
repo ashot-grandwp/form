@@ -3,7 +3,7 @@
     <h1>Angular Forms</h1>
 
     <div *ngFor="let control of formArray;let i = index;">
-      <div [formGroup]="control"
+      <div [formGroup]="control" 
       >
         <div class="form-control">
           <label>Firstname</label>
@@ -46,29 +46,33 @@
           </div>
         </div>
 
-        <div class="form-control">
-          <label>Password</label>
-          <input type="password" placeholder="Password" formControlName="password">
-          <div
-            *ngIf="password(control).invalid && password(control).touched"
-            class="validation"
-          >
-            <small *ngIf="password(control).hasError('required')">Password field cannot be empty</small>
-            <small *ngIf="password(control).hasError('minlength')">Minimum length must be {{ password(control).errors?.minlength?.requiredLength }}</small>
-            <small *ngIf="!password(control).hasError('minlength') && password(control).errors?.hasUpperLetter?.value">Password must have an uppercase letter</small>
+        <div formGroupName="myPass">
+          <div class="form-control">
+            <label>Password</label>
+            <input type="password" placeholder="Password" formControlName="password">
+            <div
+              *ngIf="password(control).invalid && password(control).touched"
+              class="validation"
+            >
+              <small *ngIf="password(control).hasError('required')">Password field cannot be empty</small>
+              <small *ngIf="password(control).hasError('minlength')">Minimum length must be {{ password(control).errors?.minlength?.requiredLength }}</small>
+              <small *ngIf="!password(control).hasError('minlength') && password(control).errors?.hasUpperLetter?.value">Password must have an uppercase letter</small>
+            </div>
+          </div>
+  
+          <div class="form-control">
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+            <div
+              *ngIf="confirmPassword(control).invalid && confirmPassword(control).touched"
+              class="validation">
+              <small *ngIf="confirmPassword(control).hasError('required')">Confirm Password field cannot be empty</small>
+              <small *ngIf="confirmPassword(control).hasError('notSame')">Password must match</small>
+            </div>
           </div>
         </div>
 
-        <div class="form-control">
-          <label>Confirm Password</label>
-          <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
-          <div
-            *ngIf="confirmPassword(control).invalid && confirmPassword(control).touched"
-            class="validation">
-            <small *ngIf="confirmPassword(control).hasError('required')">Confirm Password field cannot be empty</small>
-            <small *ngIf="control?.errors?.notSame">Password must match</small>
-          </div>
-        </div>
+        
 
 <!--        {{confirmPassword(control).errors | json}}-->
 <!--        {{control.errors | json}}-->
