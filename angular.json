@@ -101,7 +101,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "baseHref": "https://ashot-grandwp.github.io/form/"
+          }
         }
       }
     }
